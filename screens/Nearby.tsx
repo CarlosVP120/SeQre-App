@@ -33,7 +33,7 @@ export type OrdersScreenRouteProp = CompositeNavigationProp<
   NativeStackNavigationProp<RootStackParamList, "Order">
 >;
 
-const OrdersScreen = () => {
+const OrdersScreen = ({ setGlobalLocation }: any, { globalLocation }: any) => {
   const navigation = useNavigation<OrdersScreenRouteProp>();
 
   const tw = useTailwind();
@@ -122,7 +122,7 @@ const OrdersScreen = () => {
           // Get the data from the Areas collection where the name if the document is equal to the township
         });
     })();
-  }, [location]);
+  }, []);
 
   // Get the address from the user location
   // useEffect(() => {
@@ -180,8 +180,6 @@ const OrdersScreen = () => {
       tabBarLabel: ({ focused, color }) => null,
     });
   }, []);
-
-  const toConcatArray = [];
 
   // if (dataArray.length > 0) {
   //   for (let i = 0; i < dataArray.length; i++) {

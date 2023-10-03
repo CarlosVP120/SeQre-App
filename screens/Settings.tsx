@@ -29,7 +29,10 @@ export type OrdersScreenRouteProp = CompositeNavigationProp<
   NativeStackNavigationProp<RootStackParamList, "Order">
 >;
 
-const SettingsScreen = () => {
+const SettingsScreen = (
+  { setGlobalLocation }: any,
+  { globalLocation }: any
+) => {
   const navigation = useNavigation<OrdersScreenRouteProp>();
 
   const tw = useTailwind();

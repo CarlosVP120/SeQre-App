@@ -49,7 +49,7 @@ export type OrdersScreenRouteProp = CompositeNavigationProp<
   NativeStackNavigationProp<RootStackParamList, "NewData">
 >;
 
-const OrdersScreen = () => {
+const OrdersScreen = ({ setGlobalLocation }: any, { globalLocation }: any) => {
   const navigation = useNavigation<OrdersScreenRouteProp>();
 
   const tw = useTailwind();
@@ -188,7 +188,7 @@ const OrdersScreen = () => {
           console.log(response.localityInfo.administrative[2].name);
         });
     })();
-  }, [location]);
+  }, []);
 
   useLayoutEffect(() => {
     navigation.setOptions({

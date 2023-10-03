@@ -34,7 +34,10 @@ export type CustomersScreenNavigationProp = CompositeNavigationProp<
   NativeStackNavigationProp<RootStackParamList>
 >;
 
-const CustomersScreen = () => {
+const CustomersScreen = (
+  { setGlobalLocation }: any,
+  { globalLocation }: any
+) => {
   // AREAS SCREEN
   const [dataArray, setDataArray] = useState([]);
   const tw = useTailwind();
@@ -50,38 +53,39 @@ const CustomersScreen = () => {
     longitude: -122.4324,
   });
 
+  // // Get location
+  // useEffect(() => {
+  //   (async () => {
+  //     let { status } = await Location.requestForegroundPermissionsAsync();
+  //     if (status !== "granted") {
+  //       Alert.alert(
+  //         "Location is necessary",
+  //         "Permission to access location was denied, make sure to enable location services in your device settings."
+  //       );
+  //       return;
+  //     }
+
+  //     let locations = await Location.getCurrentPositionAsync({});
+  //     setLocation(locations);
+  //   })();
+  // }, []);
+
+  // const lat = location?.coords.latitude;
+  // const lng = location?.coords.longitude;
+
   useEffect(() => {
-    (async () => {
-      let { status } = await Location.requestForegroundPermissionsAsync();
-      if (status !== "granted") {
-        Alert.alert(
-          "Location is necessary",
-          "Permission to access location was denied, make sure to enable location services in your device settings."
-        );
-        return;
-      }
-
-      let locations = await Location.getCurrentPositionAsync({});
-      setLocation(locations);
-    })();
-  }, []);
-
-  const lat = location?.coords.latitude;
-  const lng = location?.coords.longitude;
-
-  useEffect(() => {
-    if (lat && lng) {
+    if (globalLocation?.lat && globalLocation?.lng) {
       registerIndieID(
-        `${lat},${lng},${auth.currentUser?.uid}`,
+        `${globalLocation?.lat},${globalLocation?.lng},${auth.currentUser?.uid}`,
         5422,
         "LZxJt15e9Y41RHQxbR7lbx"
       );
 
       update(ref(getDatabase(auth.app), `customers/${auth.currentUser?.uid}`), {
-        pushNotificationKey: `${lat},${lng},${auth.currentUser?.uid}`,
+        pushNotificationKey: `${globalLocation?.lat},${globalLocation?.lng},${auth.currentUser?.uid}`,
       });
     }
-  }, [lat, lng]);
+  }, [globalLocation?.lat, globalLocation?.lng]);
 
   useLayoutEffect(() => {
     navigation.setOptions({

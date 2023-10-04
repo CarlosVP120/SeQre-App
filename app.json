@@ -33,7 +33,6 @@
         "projectId": "e280632e-8a04-484f-a3ee-89224b970aae"
       }
     },
-    "scheme": "seqre-app",
-    "owner": "apeiron-dev"
+    "scheme": "seqre-app"
   }
 }
